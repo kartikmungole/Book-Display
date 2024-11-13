@@ -1,0 +1,7 @@
+def book_list(request):
+    # Fetch data from the API
+    # response = requests.get('http://127.0.0.1:8000/api/books')
+    # books = response.json()
+    
+    # Pass the data to the template
+    return render(request, 'book_list.html', {'books': books}s)

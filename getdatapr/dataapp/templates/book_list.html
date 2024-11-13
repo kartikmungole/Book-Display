@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book List</title>
+    <script>
+        // Function to fetch data from the API and update the table
+        function fetchBooks() {
+            fetch('http://127.0.0.1:8000/api/books')  // Adjust this if your API is on port 5000
+                .then(response => response.json())
+                .then(books => {
+                    let tableBody = document.getElementById('books-table-body');
+                    tableBody.innerHTML = '';  // Clear the current table data
+                    
+                    books.forEach(book => {
+                        let row = `
+                            <tr>
+                                <td>${book.id}</td>
+                                <td>${book.title}</td>
+                                <td>${book.author}</td>
+                                <td>${book.price}</td>
+                            </tr>
+                        `;
+                        tableBody.innerHTML += row;
+                    });
+                });
+        }
+
+        // Automatically refresh the data every 5 seconds (5000 ms)
+        setInterval(fetchBooks, 5000);
+
+        // Fetch data when the page loads for the first time
+        window.onload = fetchBooks;
+    </script>
+</head>
+<body>
+    <h1>Book List</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody id="books-table-body">
+            <!-- Data will be dynamically injected here -->
+        </tbody>
+    </table>
+</body>
+</html>
